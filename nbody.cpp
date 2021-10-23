@@ -9,12 +9,14 @@
    
    contributed by cvergu
    slightly modified by bmmeijers
+   modified by Siebren Meines
 */
 
 #define _USE_MATH_DEFINES
 #include <cmath>
 #include <iostream>
 #include <fstream>
+#include <chrono>
 
 // these values are constant and not allowed to be changed
 const double SOLAR_MASS = 4 * M_PI * M_PI;
@@ -240,6 +242,7 @@ body state[] = {
 
 
 int main(int argc, char **argv) {
+    auto start = std::chrono::high_resolution_clock::now();
     if (argc != 2) {
         std::cout << "This is " << argv[0] << std::endl;
         std::cout << "Call this program with an integer as program argument" << std::endl;
@@ -253,13 +256,9 @@ int main(int argc, char **argv) {
         offset_momentum(state);
         std:: cout << energy(state) << std::endl;
         for (int i = 0; i < n; ++i) {
-            for(int k = 0; k < n; ++k){
                 advance(state, 0.01);
-            }
-            std::cout << energy(state) << std::endl;
-
             for (unsigned int j = 0; j < BODIES_COUNT; ++j) {
-                fh << state[j].name << ';' << state[j].position.x << ';'<< state[j].position.y << ';' << state[j].position.z << std::endl;
+//                fh << state[j].name << ';' << state[j].position.x << ';'<< state[j].position.y << ';' << state[j].position.z << std::endl;
             }
         }
         fh.close();

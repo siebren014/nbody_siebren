@@ -8,10 +8,11 @@
 # 2to3
 # modified by Andriy Misyura
 # slightly modified by bmmeijers
+# modified by Siebren Meines
 
 import sys
 from math import sqrt, pi as PI
-
+import time
 
 def combinations(l):
     result = []
@@ -100,7 +101,7 @@ def report_energy(bodies=SYSTEM, pairs=PAIRS, e=0.0):
         e -= (m1 * m2) / ((dx * dx + dy * dy + dz * dz) ** 0.5)
     for (r, [vx, vy, vz], m) in bodies:
         e += m * (vx * vx + vy * vy + vz * vz) / 2.0
-    print("Energy: %.9f" % e)
+    # print("Energy: %.9f" % e)
 
 
 def offset_momentum(ref, bodies=SYSTEM, px=0.0, py=0.0, pz=0.0):
@@ -120,14 +121,13 @@ def main(n, ref="sun"):
     advance(0.01, n)
     report_energy()
 
-
 if __name__ == "__main__":
     if len(sys.argv) >= 2:
         with open("python_nbody.csv", "w") as fh:
             fh.write("bodyname;" + " position x;" + " position y;" + " position z")
 
             for i in range(int(sys.argv[1])):
-                main(i)
+                main(1)
                 for body, (r, v, m) in BODIES.items():
                     fh.write("\n" + body + "; " + str(r[0]) + "; " + str(r[1]) + "; " + str(r[2]))
         sys.exit(0)
