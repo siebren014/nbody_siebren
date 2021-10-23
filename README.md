@@ -1,3 +1,3 @@
 # INFO
 This repository is for an Assignment for my Masters of Geomatics at TU Delft.
-The files can be found under Master
+The files can be found under the Master Branch
